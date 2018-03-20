@@ -342,9 +342,9 @@ function* getFigureRectangles(figure) {
 					
 					do{
 						result += figArr[i+height].slice(cur1.index, cur2.index + 1) + '\n';
-						height++;
-					}while(!(/\+/.test(figArr[i+height-1][cur1.index]) && 
-									/\+/.test(figArr[i+height-1][cur2.index])));
+						height++;///\+/
+					}while(!(r.test(figArr[i+height-1][cur1.index]) && 
+									r.test(figArr[i+height-1][cur2.index])));
 					
 					result = result.split('\n');
 					result[0] = `+${(new Array(result[0].length-1)).join('-')}+`;

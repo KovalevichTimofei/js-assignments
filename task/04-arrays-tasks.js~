@@ -422,8 +422,8 @@ function toStringList(arr) {
  */
 function sortCitiesArray(arr) {
 	return arr.sort((a, b) => {
-   		if(a.country == b.country) return b.city < a.city ? 1 : -1;
-   		else return b.country < a.country ? 1 : -1;
+   		if(a.country == b.country) b.city < a.city ? 1 : -1;		
+   		else b.country < a.country ? 1 : -1;
 	});
 }
 

@@ -604,31 +604,50 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
+	let X = 'X', O = 'O';
+	
+	
+	for (let r = 0; r < position.length; r++)
+	{
+		let str = '[ '
+		for(let j = 0; j < position[r].length; j++)
+			str += position[r][j] + ', ';
+		str+= ']'
+		console.log(str);
+	}
+	
 	
 	for (let i = 0; i < position.length; i++)
 	{
+		console.log('first: ' + position[i][0]);
+		console.log('second: ' + position[i][1]);
+		console.log('third: ' + position[i][2]);
+		console.log(position[0][0] == position[0][1] && position[0][1] == position [i][2]);
+		console.log(position[0][0] + ' and O: ' + (position[0][0] == 0));
+		
 		if(position[i][0] == position[i][1] && position[i][1] == position [i][2])
 		{
-			if(position[i][0] == 'X') return 'X';
-			else if(position[i][0] == '0') return '0';
+			if(position[i][0] == 'X') { console.log('X'); return 'X'}
+			else if(position[i][0] == '0') { console.log('O'); return '0'}
 		}
 		else if(position[0][i] == position[1][i] && position[1][i] == position[2][i])
 		{
-			if(position[0][i] == 'X') return 'X';
-			else if(position[0][i] == '0') return '0';
+			if(position[0][i] == 'X') { console.log('X'); return 'X'}
+			else if(position[0][i] == '0') { console.log('O'); return '0'}
 		}		
 	}
 	
 	if(position[0][0] == position[1][1] && position[1][1] == position[2][2])
 	{
-		if(position[1][1] == 'X') return 'X';
-		else if(position[1][1] == '0') return '0';
+		if(position[1][1] == 'X') { console.log('X');return 'X'}
+		else if(position[1][1] == '0') { console.log('O');return '0'}
 	}
 	else if(position[0][2] == position[1][1] && position[1][1] == position[2][0])
 	{
-		if(position[1][1] == 'X') return 'X';
-		else if(position[1][1] == '0') return '0';
+		if(position[1][1] == 'X') { console.log('X');return 'X'}
+		else if(position[1][1] == '0') { console.log('O');return '0'}
 	}
+	//throw new Error('Not implemented');
 }
 
 

@@ -172,16 +172,33 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    let arr = new Map([[root, null]]);
-    
-  	while(arr.size > 0){
+    /*let arr = [root], 
+    	count = 1;
+    	
+  	while(arr.length > 0){
   	
-  		let tempMap = new Map();
+  		for(count; count > 0; count--){
   		
+  			yield arr[0];
+  			
+  			if(arr[0].children){
+  				arr[0].children.forEach(val => 
+  				{
+  					arr.push(val);
+  					count++;
+  				});			
+  			}
+  			
+  			arr.shift();
+  		}  		
+    }*/
+    let arr = new Map([[root, null]]);//[root], 
+    	//count = 1;
+  	while(arr.size > 0){
+  		let tempMap = new Map();
   		for (let key of arr.keys())
   		{
   			yield key;
-  			
   			if(key.children){
   				key.children.forEach(val => 
   				{
@@ -189,7 +206,6 @@ function* breadthTraversalTree(root) {
   				});			
   			}
   		}
-  		
   		arr = tempMap;
     }
 }

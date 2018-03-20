@@ -49,14 +49,14 @@ function findStringInSnakingPuzzle(puzzle, searchStr) {
     		{
     			let newPuzzleArrVersion = puzzleArr.slice();
     			newPuzzleArrVersion[i][j].use = true;
-    			findWay(i, j, 0, puzzleArr);
+    			abc(i, j, 0, puzzleArr);
     		}    		
     	});
     });
     
     return result;
     
-    function findWay(i, j, numChar, puzzleArr)
+    function abc(i, j, numChar, puzzleArr)
     {
     	let curArr = puzzleArr.slice();
     	
@@ -68,22 +68,22 @@ function findStringInSnakingPuzzle(puzzle, searchStr) {
 			if(j > 0 && !curArr[i][j-1].use && curArr[i][j-1].val === nextChar)
 			{
 				curArr[i][j-1].use = true;
-				findWay(i, j-1, numChar + 1, curArr);
+				abc(i, j-1, numChar + 1, curArr);
 			}
 			if(i + 1 < width && !curArr[i+1][j].use && curArr[i+1][j].val === nextChar)
 			{
 				curArr[i+1][j].use = true;
-				findWay(i+1, j, numChar + 1, curArr);
+				abc(i+1, j, numChar + 1, curArr);
 			}
 			if(j + 1 < height && !curArr[i][j+1].use && curArr[i][j+1].val === nextChar)
 			{
 				curArr[i][j+1].use = true;
-				findWay(i, j+1, numChar + 1, curArr);
+				abc(i, j+1, numChar + 1, curArr);
 			}
 			if(i > 0 && !curArr[i-1][j].use && curArr[i-1][j].val === nextChar)
 			{
 				curArr[i-1][j].use = true;
-				findWay(i-1, j, numChar + 1, curArr);
+				abc(i-1, j, numChar + 1, curArr);
 			}
     	}
     	else result = true;
@@ -103,7 +103,7 @@ function findStringInSnakingPuzzle(puzzle, searchStr) {
  *    'ab'  => 'ab','ba'
  *    'abc' => 'abc','acb','bac','bca','cab','cba'
  */
-function* getPermutations(chars) { // I used Hip's algorithm
+function* getPermutations(chars) {
     yield chars;	
 	
 	let length = chars.length,
