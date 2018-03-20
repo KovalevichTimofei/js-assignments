@@ -135,7 +135,7 @@ function fromJSON(proto, json) {
 
 const cssSelectorBuilder = {
 
-	let selector = '';
+	/*let selector = '';
 	
     element: function(value) {
         selector += element;
@@ -170,8 +170,9 @@ const cssSelectorBuilder = {
     
     stringify: () => this.toString();
     
-    toString: () => {return selector; selector = '';},
-};
+    toString: () => {return selector; selector = '';},*/
+    throw new Error('Not implemented');
+}
 
 
 module.exports = {
