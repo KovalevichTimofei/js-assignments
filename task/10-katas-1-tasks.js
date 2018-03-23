@@ -345,56 +345,66 @@ function getZigZagMatrix(n) {
  */
 
 function canDominoesMakeRow(dominoes) {
+    let steak = [
+		{
+			current : dominoes[0], 
+			rest : dominoes.slice(1)
+		}
+	];
     
-    let flag = false;
-    
-    for(let i = 0; i < dominoes.length; i++)
+    while (steak[0].rest.length !== 0)
     {
-    	let tmp = dominoes.slice();
-    	tmp.splice(i, 1);
-    	joinDominoes(dominoes[i], tmp);
-    }
+    	let tempSteak = [];
     	
-	function joinDominoes(val, arr)
-	{
-		for(let j = 0; j < arr.length; j++)
-		{			
-			let tmp = arr.slice();
-			tmp.splice(j, 1);
-			
-			if(arr[j].indexOf(val[0]) > -1 || arr[j].indexOf(val[1]) > -1)
-			{
-				if(arr[j][0] == val[0])
-				{
-					joinDominoes(new Array(val[1], arr[j][1]), tmp);
-				}
-				if(arr[j][0] == val[1])
-				{
-					joinDominoes(new Array(val[0], arr[j][1]), tmp);
-				}
-				if(arr[j][1] == val[0])
-				{
-					joinDominoes(new Array(val[1], arr[j][0]), tmp);
-				}
-				if(arr[j][1] == val[1])
-				{
-					joinDominoes(new Array(val[0], arr[j][0]), tmp);
-				}
-				if(tmp.length == 0)
-				{
-					flag = flag || true;
-				}
-			}
-			else
-			{
-				flag = flag || false;
-			}
-		}		
-	}
-	
-	return flag;	
-}
+    	steak.forEach(val =>
+    	{
+    		val.rest.forEach((item, i) =>
+    		{
+    			let rest = val.rest.slice();
 
+    			rest.splice(i, 1)    			
+    			
+    			if(val.current[0] === item[1])
+				{
+					tempSteak.push({
+						current : [val.current[1], item[0]],
+						rest : rest
+					});
+				}
+				if(val.current[1] === item[1])
+				{
+					tempSteak.push({
+						current : [val.current[0], item[0]],
+						rest : rest
+					});
+				}
+				if(val.current[0] === item[0])
+				{
+					tempSteak.push({
+						current : [val.current[1], item[1]],
+						rest : rest
+					});
+				}
+				if(val.current[1] === item[0])
+				{
+					tempSteak.push({
+						current : [val.current[0], item[1]],
+						rest : rest
+					});
+				}
+    		});
+    	});
+    	
+    	if(tempSteak.length === 0)
+    	{
+    		return false;
+    	}
+    	
+    	steak = tempSteak;
+    }
+    
+    return true;
+}
 /**
  * Returns the string expression of the specified ordered list of integers.
  *

@@ -21,17 +21,8 @@
  *    console.log(r.width);       // => 10
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
- 
-function Rectangle(width, height) {
-    return {
-    	width: width,
-    	height: height,
-    	getArea: function()
-    	{
-    		return this.width * this.height;
-    	}
-    }
-}*/
+ */
+
 function Rectangle(width, height) {
     this.width = width;
     this.height = height;
@@ -133,45 +124,159 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
-const cssSelectorBuilder = {
-
-	/*let selector = '';
+const cssSelectorBuilder =
+{
+	selector : '',
+	ifElemOccur : false,
+	ifIdOccur : false,
+	ifPseudoElemOccur : false,
+	order : [],
 	
-    element: function(value) {
-        selector += element;
+    element : function(value) {   
+    	if (!this.ifElemOccur && this.order.length === 0)
+    	{
+    		let newObject = this.generObj(this, `${this.selector}${value}`, 
+    																'element');
+    		newObject.ifElemOccur = true;
+    		return newObject;
+    	}
+        else if (this.ifElemOccur)
+        {
+        	throw 'Element, id and pseudo-element should not occur more then one time inside the selector';
+        }
+        else
+        {
+        	throw 'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element';
+        }
     },
 
-    id: function(value) {
-    	selector += '#' + value;
-        return this;
+    id : function(value) {
+    
+    	let orderFlag = false;
+    	
+    	if(this.order.length === 0 || (this.order.length === 1 && 
+    											this.order[0] === 'element'))
+    	{
+    		orderFlag = true;
+    	}
+    	
+    	if (!this.ifIdOccur && orderFlag)
+    	{
+    		let newObject = this.generObj(this, `${this.selector}#${value}`, 
+    																	'id');
+    		newObject.ifIdOccur = true;
+    		return newObject;
+		}
+		else if (this.ifIdOccur)
+        {
+        	throw 'Element, id and pseudo-element should not occur more then one time inside the selector';
+        }
+        else
+        {
+        	throw 'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element';
+        }
     },
 
-    class: function(value) {
-    	selector += '.' + value;
-        return this;
+    class : function(value) {
+    
+    	let orderFlag = true;
+    
+    	this.order.forEach(val => {
+    		if(val === 'attribute' || val === 'pseudo-class' || 
+    												val === 'pseudo-element')
+    			orderFlag = orderFlag && false; 		
+    	});
+    	
+    	if(orderFlag)
+    	{
+    		return this.generObj(this, `${this.selector}.${value}`, 'class');
+    	}
+    	else
+    	{
+    		throw 'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element';
+    	}        
     },
 
-    attr: function(value) {
-    	selector += '[' + value + ']';
-        return this;
+    attr : function(value) {
+    	let orderFlag = true;
+    
+    	this.order.forEach(val => {
+    		if(val === 'pseudo-class' || val === 'pseudo-element')
+    			orderFlag = orderFlag && false;		
+    	});
+    	
+    	if(orderFlag)
+    	{
+    		return this.generObj(this, `${this.selector}[${value}]`, 
+    															'attribute');
+    	}
+    	else
+    	{
+    		throw 'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element';
+    	}  
     },
 
-    pseudoClass: function(value) {
-        selector += ':' + value;
+    pseudoClass : function(value) {
+    	let orderFlag = true;
+    
+    	this.order.forEach(val => {
+    		if(val === 'pseudo-element')
+    			orderFlag = orderFlag && false; 		
+    	});
+    	
+    	if(orderFlag)
+    	{
+    		return this.generObj(this, `${this.selector}:${value}`, 
+    															'pseudo-class');
+    	}
+    	else
+    	{
+    		throw 'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element';
+    	}  
     },
 
-    pseudoElement: function(value) {
-        selector += '::' + value;
+    pseudoElement : function(value) {
+    	if (!this.ifPseudoElemOccur)
+    	{
+    		let newObject = this.generObj(this, `${this.selector}::${value}`, 
+    														'pseudo-element');
+    		newObject.ifPseudoElemOccur = true;
+    		return newObject;
+		}
+		else if (this.ifPseudoElemOccur)
+        {
+        	throw 'Element, id and pseudo-element should not occur more then one time inside the selector';
+        }
+        else
+        {
+        	throw 'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element';
+        }
     },
 
-    combine: function(selector1, combinator, selector2) {
-        selector = selector1 + combinator + selector2;
+    combine : function comb(selector1, combinator, selector2) {
+        let res = `${selector1.selector} ${combinator} ${selector2.selector}`;
+          
+        return this.generObj(this, res); 
     },
     
-    stringify: () => this.toString();
-    
-    toString: () => {return selector; selector = '';},*/
-    throw new Error('Not implemented');
+    stringify : function () {
+		let res = this.selector;
+		this.selector = '';
+		return res;
+	},
+	
+	generObj : function(obj, selector, nextRule)
+	{
+		let newObj = {};
+	
+		Object.assign(newObj, obj);
+				
+		newObj.selector = selector;
+		newObj.order = obj.order.slice();
+		newObj.order.push(nextRule);
+		
+		return newObj;
+	}
 }
 
 

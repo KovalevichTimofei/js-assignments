@@ -21,7 +21,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    return value1 + value2;
+    return `${value1}${value2}`;
 }
 
 
@@ -130,7 +130,8 @@ function repeatString(value, count) {
  */
 function removeFirstOccurrences(str, value) {
 	let pos = str.indexOf(value);
-    return str.substr(0, pos) + str.substr(pos + value.length);
+    //return str.substr(0, pos) + str.substr(pos + value.length);
+    return `${str.substr(0, pos)}${str.substr(pos + value.length)}`;
 }
 
 /**
@@ -201,10 +202,10 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    let top = '┌' + '─'.repeat(width-2) + '┐\n';
-    let bottom = '└' + '─'.repeat(width-2) + '┘\n';
-    let center = '│' + ' '.repeat(width-2) + '│\n';
-    return top + center.repeat(height-2) + bottom;
+    let top = `┌${'─'.repeat(width-2)}┐\n`;
+    let bottom = `└${'─'.repeat(width-2)}┘\n`;
+    let center = `│${' '.repeat(width-2)}│\n`;
+    return `${top}${center.repeat(height-2)}${bottom}`;
 }
 
 
