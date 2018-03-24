@@ -87,7 +87,7 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 function getArrayOfStrings(arr) {
-   return arr.filter(val => val instanceof String || typeof val == 'string');
+   return arr.filter(val => val instanceof String || typeof val === 'string');
 }
 
 /**
@@ -253,7 +253,7 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-   return arr.filter((val, i) => i%2 == 1);
+   return arr.filter((val, i) => i%2 === 1);
 }
 
 
@@ -309,7 +309,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-   return arr.reduce((sum, val) => (typeof val == 'number' && val > 0) ? ++sum : sum, 0);
+   return arr.reduce((sum, val) => (typeof val === 'number' && val > 0) ? ++sum : sum, 0);
 }
  
 /** 
@@ -422,7 +422,7 @@ function toStringList(arr) {
  */
 function sortCitiesArray(arr) {
 	return arr.sort((a, b) => {
-   		if(a.country == b.country) return b.city < a.city ? 1 : -1;
+   		if(a.country === b.country) return b.city < a.city ? 1 : -1;
    		else return b.country < a.country ? 1 : -1;
 	});
 }

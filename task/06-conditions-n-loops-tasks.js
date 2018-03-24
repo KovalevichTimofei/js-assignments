@@ -363,11 +363,11 @@ function isBracketsBalanced(str) {
     	{
     		temp.push(curChar);	
     	}
-    	else if(br.test(curChar) && temp[temp.length - 1] == correspChar)
+    	else if(br.test(curChar) && temp[temp.length - 1] === correspChar)
     	{ 
     		temp.pop();	
     	}
-    	else if (curChar == ')' && temp[temp.length - 1] == '(')
+    	else if (curChar === ')' && temp[temp.length - 1] === '(')
     	{
 
     		temp.pop();	
@@ -378,7 +378,7 @@ function isBracketsBalanced(str) {
     	}
     }
     
-    if(temp.length == 0) return true;    	
+    if(temp.length === 0) return true;    	
     else return false;
 }
 
@@ -418,14 +418,14 @@ function timespanToHumanString(startDate, endDate) {
     let dif = (endDate - startDate)/1000;
     
     if(dif/60/60/24/546 >= 1)
-    	return parseInt(dif/60/60/24/365) + ' years ago';
+    	return `${parseInt(dif/60/60/24/365)} years ago`;
     else if(dif/60/60/24/345 > 1)
     {
     	return 'a year ago';
     }
     else if(dif/60/60/24/45 > 1)
     {
-    	return Math.ceil(dif/60/60/24/30 - 0.5) + ' months ago';
+    	return `${Math.ceil(dif/60/60/24/30 - 0.5)} months ago`;
     }
     else if(dif/60/60/24/25 > 1)
     {
@@ -433,7 +433,7 @@ function timespanToHumanString(startDate, endDate) {
     }
     else if(dif/60/60/36 > 1)
     {
-    	return Math.ceil(dif/60/60/24 - 0.5) + ' days ago';
+    	return `${Math.ceil(dif/60/60/24 - 0.5)} days ago`;
     }
     else if(dif/60/60/22 > 1)
     {
@@ -441,7 +441,7 @@ function timespanToHumanString(startDate, endDate) {
     }
     else if(dif/60/90 > 1)
     {
-    	return Math.ceil(dif/60/60 - 0.5) + ' hours ago';
+    	return `${Math.ceil(dif/60/60 - 0.5)} hours ago`;
     }
     else if(dif/60/45 > 1)
     {
@@ -449,7 +449,7 @@ function timespanToHumanString(startDate, endDate) {
     }
     else if(dif/90 > 1)
     {
-    	return Math.ceil(dif/60 - 0.5) + ' minutes ago';
+    	return `${Math.ceil(dif/60 - 0.5)} minutes ago`;
     }
     else if(dif/45 > 1)
     {
@@ -507,11 +507,11 @@ function toNaryString(num, n) {
 function getCommonDirectoryPath(pathes) {
     label: for(let i = pathes[0].length - 1; i >= 0; --i)
     {
-    	if(pathes[0].charAt(i) == '/')
+    	if(pathes[0].charAt(i) === '/')
     	{
     		for(let j = 0; j < pathes.length - 1; j++)
     		{
-    			if (pathes[j].slice(0, i+1) != pathes[j+1].slice(0, i+1))
+    			if (pathes[j].slice(0, i+1) !== pathes[j+1].slice(0, i+1))
     				continue label;				
 			}
 			return pathes[0].slice(0, i+1);
@@ -607,27 +607,27 @@ function evaluateTicTacToePosition(position) {
 	
 	for (let i = 0; i < position.length; i++)
 	{
-		if(position[i][0] == position[i][1] && position[i][1] == position [i][2])
+		if(position[i][0] === position[i][1] && position[i][1] === position [i][2])
 		{
-			if(position[i][0] == 'X') return 'X';
-			else if(position[i][0] == '0') return '0';
+			if(position[i][0] === 'X') return 'X';
+			else if(position[i][0] === '0') return '0';
 		}
-		else if(position[0][i] == position[1][i] && position[1][i] == position[2][i])
+		else if(position[0][i] === position[1][i] && position[1][i] === position[2][i])
 		{
-			if(position[0][i] == 'X') return 'X';
-			else if(position[0][i] == '0') return '0';
+			if(position[0][i] === 'X') return 'X';
+			else if(position[0][i] === '0') return '0';
 		}		
 	}
 	
-	if(position[0][0] == position[1][1] && position[1][1] == position[2][2])
+	if(position[0][0] === position[1][1] && position[1][1] === position[2][2])
 	{
-		if(position[1][1] == 'X') return 'X';
-		else if(position[1][1] == '0') return '0';
+		if(position[1][1] === 'X') return 'X';
+		else if(position[1][1] === '0') return '0';
 	}
-	else if(position[0][2] == position[1][1] && position[1][1] == position[2][0])
+	else if(position[0][2] === position[1][1] && position[1][1] === position[2][0])
 	{
-		if(position[1][1] == 'X') return 'X';
-		else if(position[1][1] == '0') return '0';
+		if(position[1][1] === 'X') return 'X';
+		else if(position[1][1] === '0') return '0';
 	}
 }
 

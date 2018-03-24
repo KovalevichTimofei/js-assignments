@@ -31,7 +31,7 @@ function createCompassPoints() {
     	{
     		rosa[i].abbreviation = sides[rosa[i].azimuth / 90];
     	}
-    	else if(rosa[i].azimuth % 45 == 0)
+    	else if(rosa[i].azimuth % 45 === 0)
     	{
     		rosa[i].abbreviation = sides[Math.floor(rosa[i].azimuth / 90)] + 
     									sides[Math.ceil(rosa[i].azimuth / 90)];
@@ -54,7 +54,7 @@ function createCompassPoints() {
  	
  	for (i = 1; i < 32; i += 2) // fill points on 1/32
  	{
- 		rosa[i].abbreviation = rosa[i+1].azimuth % 45 == 0 ?
+ 		rosa[i].abbreviation = rosa[i+1].azimuth % 45 === 0 ?
  										rosa[i+1].abbreviation + 'b' + 
  										sides[Math.floor(rosa[i].azimuth / 90)] : 
  										rosa[i-1].abbreviation + 'b' + 
@@ -104,7 +104,7 @@ function createCompassPoints() {
  	let inBrack = [], outBrack = [], rest = '',
  		count = 0, openBrack, closeBrack, i = 0, j = 0;
 	
-    if(str.indexOf('{') != -1)
+    if(str.indexOf('{') !== -1)
     {
     	openBrack = str.indexOf('{');
     	count++;
@@ -115,23 +115,23 @@ function createCompassPoints() {
 		return;
 	}
     
-    while (str[i] != undefined)
+    while (str[i] !== undefined)
     {
     	outBrack.push(str.slice(closeBrack, openBrack));
     		
     	for (i = openBrack + 1; count > 0; ++i)
     	{
-    		if(str[i] == '{') count++
-    		else if(str[i] == '}') count--;
+    		if(str[i] === '{') count++
+    		else if(str[i] === '}') count--;
     	}
     	  
     	closeBrack = i;
     	
     	inBrack.push(splitter(str.slice(openBrack + 1, closeBrack - 1), ','));
     	
-    	for (i = closeBrack; str[i] != undefined; ++i)
+    	for (i = closeBrack; str[i] !== undefined; ++i)
     	{
-    		if (str[i] == '{')
+    		if (str[i] === '{')
     		{
     			openBrack = i;   			
     			count++;
@@ -186,7 +186,7 @@ function createCompassPoints() {
 	
 	function splitter(str, separator)
 	{	
-		if(str.indexOf('{') == -1)
+		if(str.indexOf('{') === -1)
 		{
 			return str.split(separator);
 		}
@@ -195,19 +195,19 @@ function createCompassPoints() {
 	
 		while(str[i] != undefined)
 		{
-			if(str[i] == '{')
+			if(str[i] === '{')
 			{
 				rest = '';
 				result = result.concat(str.slice(prev, i).split(separator));
 				
-				while(str[i] != '}')
+				while(str[i] !== '}')
 				{
 					brackCont += str[i++];
 				}
 				
 				brackCont += str[i++];
 				
-				while(str[i] != separator && str[i] != undefined)
+				while(str[i] !== separator && str[i] !== undefined)
 				{
 					brackCont += str[i++];
 				}

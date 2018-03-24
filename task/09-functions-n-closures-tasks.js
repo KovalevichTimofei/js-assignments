@@ -30,7 +30,6 @@ function getComposition(f,g) {
 	{
 		return f(g(x));
 	}
-    //throw new Error('Not implemented');
 }
 
 
@@ -171,9 +170,9 @@ function logger(func, logFunc) {
     		
     	args.map((val, i) => strArgs.push(JSON.stringify(val)));
 
-    	logFunc(func.name + '(' + strArgs.join(',') + ') starts');
+    	logFunc(`${func.name}(${strArgs.join(',')}) starts`);
     	let result = func.apply(null, args);
-    	logFunc(func.name + '(' + strArgs.join(',') + ') ends');
+    	logFunc(`${func.name}(${strArgs.join(',')}) ends`);
 
     	return result;
     }
